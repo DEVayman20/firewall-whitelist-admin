@@ -1,0 +1,18 @@
+[Unit]
+Description=Whitelist Firewall Service
+Documentation=man:iptables(8)
+After=network.target
+Before=network-online.target
+Wants=network.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/home/akuma/Desktop/projects/kibers/st16/firewall/whitelist_admin.sh load
+ExecReload=/home/akuma/Desktop/projects/kibers/st16/firewall/whitelist_admin.sh load
+ExecStop=/home/akuma/Desktop/projects/kibers/st16/firewall/whitelist_admin.sh flush
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
