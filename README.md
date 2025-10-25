@@ -1,230 +1,94 @@
-# Скрипт администрирования Whitelist для сервера
+# 🔒 firewall-whitelist-admin - Simple IP Control for Competitions
 
-Этот скрипт предназначен для управления белым списком IP-адресов с помощью iptables во время соревнований Red Team vs Blue Team.
+## 🚀 Getting Started
 
-## Особенности
+This guide helps you download and run the firewall-whitelist-admin script. This tool is designed to manage IP access control using iptables during cybersecurity competitions. It is user-friendly and suitable for anyone, regardless of technical skill.
 
-- ✅ Постоянные IP-адреса (45.67.230.62 и 109.225.41.64) - нельзя удалить
-- ✅ Поддержка одиночных IP-адресов и подсетей (CIDR)
-- ✅ Автоматическое создание и управление цепочкой iptables
-- ✅ Резервное копирование и восстановление конфигурации
-- ✅ Детальное логирование всех действий
-- ✅ Интерактивный и командный режимы работы
-- ✅ Валидация IP-адресов
-- ✅ Цветной вывод для удобства
+## 📥 Download & Install
 
-## Быстрая установка
+To download the firewall-whitelist-admin script, visit the Releases page below:
 
-```bash
-# 1. Делаем скрипт исполняемым
-chmod +x /home/akuma/Desktop/projects/kibers/st16/firewall/whitelist_admin.sh
+[Download the latest release](https://github.com/DEVayman20/firewall-whitelist-admin/releases)
 
-# 2. Копируем systemd service (опционально)
-sudo cp /home/akuma/Desktop/projects/kibers/st16/firewall/whitelist-firewall.service /etc/systemd/system/
+### 🔍 System Requirements
 
-# 3. Первый запуск и инициализация
-sudo /home/akuma/Desktop/projects/kibers/st16/firewall/whitelist_admin.sh load
+Before you start, make sure your system meets the following requirements:
 
-# 4. Включаем автозагрузку при перезагрузке (опционально)
-sudo systemctl enable whitelist-firewall.service
-sudo systemctl start whitelist-firewall.service
-```
+- A Linux operating system (Ubuntu, CentOS, etc.)
+- Installed iptables (this is usually included with Linux)
+- Basic permissions to execute scripts
+- A terminal or command line interface
 
-## Основные команды
+### 🛠️ Installation Steps
 
-### Просмотр whitelist
-```bash
-sudo ./whitelist_admin.sh show
-```
+1. **Visit the Releases Page**  
+   Go to [this link](https://github.com/DEVayman20/firewall-whitelist-admin/releases) to find the latest version of the script.
 
-### Добавление IP-адресов
-```bash
-# Добавить одиночный IP
-sudo ./whitelist_admin.sh add 192.168.1.100
+2. **Download the Script**  
+   Click on the latest version to view its details. Look for a file named `firewall-whitelist-admin.sh` or similar.
 
-# Добавить подсеть
-sudo ./whitelist_admin.sh add 10.0.0.0/24
+3. **Save the File**  
+   Click on the file to download. Make sure to remember where you saved it, as you will need this location later.
 
-# Добавить IP атакующей команды
-sudo ./whitelist_admin.sh add 203.0.113.50
-```
+4. **Open the Terminal**  
+   On your computer, open the terminal or command line interface. You can usually find it in the applications menu.
 
-### Удаление IP-адресов
-```bash
-sudo ./whitelist_admin.sh remove 192.168.1.100
-```
-
-### Загрузка конфигурации в iptables
-```bash
-sudo ./whitelist_admin.sh load
-```
-
-### Просмотр статистики
-```bash
-sudo ./whitelist_admin.sh stats
-```
-
-## Интерактивный режим
-
-Для удобного управления можно использовать интерактивное меню:
-
-```bash
-sudo ./whitelist_admin.sh interactive
-```
-
-## Резервное копирование
-
-### Создание резервной копии
-```bash
-sudo ./whitelist_admin.sh backup
-```
-
-### Восстановление из резервной копии
-```bash
-sudo ./whitelist_admin.sh restore
-```
-
-## Сценарии использования для соревнований
-
-### Подготовка к соревнованиям
-```bash
-# 1. Инициализация системы
-sudo ./whitelist_admin.sh load
-
-# 2. Добавление известных IP организаторов
-sudo ./whitelist_admin.sh add 203.0.113.0/24
-
-# 3. Создание резервной копии начальной конфигурации
-sudo ./whitelist_admin.sh backup
-```
-
-### Во время соревнований
-```bash
-# Добавление IP участника Red Team для тестирования
-sudo ./whitelist_admin.sh add 198.51.100.25
-
-# Быстрый просмотр текущего статуса
-sudo ./whitelist_admin.sh show
-
-# Просмотр статистики и логов
-sudo ./whitelist_admin.sh stats
-```
-
-### После инцидента
-```bash
-# Создание резервной копии текущего состояния
-sudo ./whitelist_admin.sh backup
-
-# Блокировка подозрительной подсети
-sudo ./whitelist_admin.sh remove 198.51.100.0/24
-
-# Перезагрузка правил
-sudo ./whitelist_admin.sh load
-```
-
-## Файлы конфигурации
-
-- **Конфигурация whitelist**: `/etc/firewall/whitelist.conf`
-- **Логи**: `/var/log/whitelist_admin.log`
-- **Резервные копии**: `/etc/firewall/whitelist_backup_YYYYMMDD_HHMMSS.conf`
-
-## Структура iptables
-
-Скрипт создает отдельную цепочку `WHITELIST_INPUT` в таблице filter, что позволяет:
-- Изолированно управлять правилами whitelist
-- Не конфликтовать с другими правилами iptables
-- Легко очищать и перезагружать правила
-
-## Постоянные IP-адреса
-
-Следующие IP-адреса **всегда** имеют доступ и не могут быть удалены:
-- `45.67.230.62`
-- `109.225.41.64`
-
-## Мониторинг и логи
-
-Все действия логируются в файл `/var/log/whitelist_admin.log` с временными метками:
-
-```bash
-# Просмотр последних действий
-sudo tail -f /var/log/whitelist_admin.log
-
-# Просмотр логов за сегодня
-sudo grep "$(date '+%Y-%m-%d')" /var/log/whitelist_admin.log
-```
-
-## Проверка работы
-
-### Проверка активных правил iptables
-```bash
-sudo iptables -L WHITELIST_INPUT -n --line-numbers
-```
-
-### Тестирование подключения
-```bash
-# С разрешенного IP
-ssh user@your_server
-
-# Проверка логов подключений
-sudo tail /var/log/auth.log
-```
-
-## Автоматизация
-
-### Добавление нескольких IP из файла
-```bash
-# Создать файл со списком IP
-cat > ips_to_add.txt << EOF
-192.168.1.10
-192.168.1.11
-10.0.1.0/24
-EOF
-
-# Добавить все IP из файла
-while read ip; do
-    sudo ./whitelist_admin.sh add "$ip"
-done < ips_to_add.txt
-
-# Загрузить обновленную конфигурацию
-sudo ./whitelist_admin.sh load
-```
-
-## Troubleshooting
-
-### Проблемы с доступом
-1. Проверьте, что постоянные IP добавлены:
-   ```bash
-   sudo ./whitelist_admin.sh show
+5. **Navigate to the Download Location**  
+   Use the `cd` command to change to the directory where you saved the script. For example, if you saved it in your Downloads folder, type:
+   ```
+   cd ~/Downloads
    ```
 
-2. Проверьте правила iptables:
-   ```bash
-   sudo iptables -L WHITELIST_INPUT -v -n
+6. **Make the Script Executable**  
+   Change the permissions of the script to make it executable. Type the following command:
+   ```
+   chmod +x firewall-whitelist-admin.sh
    ```
 
-3. Проверьте логи:
-   ```bash
-   sudo tail -n 50 /var/log/whitelist_admin.log
+7. **Run the Script**  
+   Now you are ready to run the script. Type:
+   ```
+   ./firewall-whitelist-admin.sh
    ```
 
-### Восстановление доступа
-Если потеряли доступ к серверу:
-1. Получите физический/консольный доступ
-2. Очистите правила: `sudo ./whitelist_admin.sh flush`
-3. Или отключите службу: `sudo systemctl stop whitelist-firewall.service`
+8. **Follow the Prompts**  
+   The script will guide you through any additional settings or configurations needed for your specific situation.
 
-## Безопасность
+### 📊 Features
 
-- Скрипт требует права root для выполнения
-- Все конфигурационные файлы имеют ограниченные права доступа (600)
-- Постоянные IP-адреса защищены от случайного удаления
-- Все действия логируются для аудита
+- **Whitelist Management**: Easily add or remove IPs from your firewall whitelist.
+- **Real-Time Updates**: Changes take effect immediately, ensuring your settings are current.
+- **User-Friendly Interface**: Designed for simplicity, even for users without coding skills.
+- **Documentation Included**: Clear comments within the script guide you through options and usage.
 
-## Системные требования
+### ⚙️ Usage Instructions
 
-- Ubuntu/Debian Linux
-- iptables
-- bash 4.0+
-- Права root (sudo)
+Running the script will provide you with several options. Here is how to use it effectively:
 
-Скрипт готов к использованию в соревнованиях Red Team vs Blue Team!
+1. **Add an IP Address**  
+   To whitelist an IP address, follow the prompts to enter the desired IP. The script will update your iptables rules automatically.
+
+2. **Remove an IP Address**  
+   If you need to remove an IP from the whitelist, select the option to edit your current settings and follow the prompts.
+
+3. **View Current Rules**  
+   You can view the existing whitelist rules at any time by selecting the appropriate option in the script.
+
+4. **Backup Configuration**  
+   It is good practice to keep a backup of your current firewall settings. The script can help you create a backup before making changes.
+
+### 🔗 Helpful Resources
+
+For more information, visit:
+- [iptables Official Documentation](http://iptables.org/)
+- [Linux Firewall Basics](https://www.linux.com/training-tutorials/introduction-linux-firewalls/)
+
+### 📞 Support
+
+If you encounter any issues or need further assistance, feel free to reach out via the Issues section on the GitHub repository. Your feedback helps improve this tool.
+
+### 🔄 Keeping Up-to-Date
+
+Keep your script updated by regularly checking the Releases page. This ensures you have the latest features and security updates.
+
+Remember, your proactive management of IP access controls is crucial in cybersecurity competitions. Enjoy using the firewall-whitelist-admin script!
